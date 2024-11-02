@@ -1,0 +1,68 @@
+entity-relationship-diagram
+
+// Song back-end
+
+genre [icon: grid] {
+    id int pk
+    name varchar
+}
+
+album [icon: disc] {
+    id int pk
+    title varchar
+    
+    artist int fk
+}
+
+album.artist > artist.id
+
+artist [icon: edit] {
+    id int pk
+    name varchar
+    last_name varchar
+}
+
+song [icon: music] {
+    id int pk
+    title varchar
+    length time
+    creation date
+    
+    genre int fk
+    album int fk
+}
+
+song.genre > genre.id
+song.album > album.id
+
+// User back-end
+
+user [icon: user] {
+    id int pk
+    name varchar
+    last_name varchar
+    birth date
+    
+    contract int fk
+}
+
+user.contract > contract.id
+
+contract [icon: file] {
+    id int pk
+    start date
+    end date
+    capacity int
+}
+
+activity [icon: activity] {
+    id int pk
+    start date
+    elapsed int // Percentage
+
+    user int fk
+    song int fk
+}
+
+activity.user > user.id
+activity.song > song.id
