@@ -85,7 +85,7 @@ def get_favorite_genre(user_id: int) -> Genre | None:
     return favorite_genre[0] if favorite_genre else None
 
 
-def requiere_login(func):
+def require_login(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         user_id = get_user_id()  # Get the current user ID

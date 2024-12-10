@@ -1,11 +1,11 @@
 from flask import request, render_template, redirect, url_for
 
 from routes import app, db, Genre, Album, Artist, Song, Contract, User, Activity, Connection
-from routes.utils import get_favorite_genre, get_user, get_user_id, requiere_login, get_user_number_listens, get_user_listening_time, format_time, get_user_percentage_sum
+from routes.utils import get_favorite_genre, get_user, get_user_id, require_login, get_user_number_listens, get_user_listening_time, format_time, get_user_percentage_sum
 
 
 @app.route("/about")
-@requiere_login
+@require_login
 def about():
     num_genres = Genre.query.count()
     num_songs = Song.query.count()
@@ -22,7 +22,7 @@ def about():
 
 
 @app.route("/admin")
-@requiere_login
+@require_login
 def admin():
     genres = Genre.query.all()
     albums = Album.query.all()
@@ -51,7 +51,7 @@ def admin():
 
 
 @app.route("/contract", methods=["GET"])
-@requiere_login
+@require_login
 def contract():
     day_str = request.args.get("day") or "Not Set"  # e.g., "2023-12-10"
     st_str = request.args.get("st") or "off"  # e.g., "on"
@@ -68,7 +68,7 @@ def contract():
 
 
 @app.route("/")
-@requiere_login
+@require_login
 def index():
     genres = Genre.query.all()
     albums = Album.query.all()
@@ -95,7 +95,7 @@ def index():
 
 
 @app.route("/profile")
-@requiere_login
+@require_login
 def profile():
     profile = get_user()
 
