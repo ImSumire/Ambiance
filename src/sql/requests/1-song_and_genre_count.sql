@@ -1,5 +1,5 @@
-SELECT COUNT(genre.id)
+SELECT COUNT(*)
 FROM genre;
 
-SELECT COUNT(song.id)
+SELECT COUNT(*)
 FROM song;
