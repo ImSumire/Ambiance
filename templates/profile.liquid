@@ -1,0 +1,13 @@
+{% extends "layout/base.liquid" %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+    <h2>{{ profile.name }} {{ profile.last_name }}</h2>
+
+    Born the {{ profile.birth_date }}<br><br>
+    Favorite genre: {{ favorite_genre.name }}<br><br>
+    Number of listened titles: {{ listened_titles }}<br>
+    Time passed of listening music: {{ listening_time }}<br>
+    Listening percentage: {{ percentage }}%<br>
+{% endblock %}

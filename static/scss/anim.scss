@@ -1,0 +1,17 @@
+// <main> transition using Swup
+.transition-main {
+  transition: {
+    duration: 0.12s;
+    property: opacity, transform;
+    timing-function: ease-in-out;
+  }
+
+  html.is-animating & {
+    opacity: 0;
+    transform: translateX(-0.25em);
+  }
+
+  html.is-leaving & {
+    transform: translateX(0.25em);
+  }
+}

@@ -1,0 +1,194 @@
+{% extends "layout/base.liquid" %}
+
+{% block title %} Admin {% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background: #080706;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        main > section {
+            background: #1b1a19;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 400px;
+        }
+
+        main > section > h2 {
+            margin-top: 0;
+        }
+
+        form {
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .info {
+            color: #6b6b6b;
+            font-style: italic;
+        }
+    </style>
+
+    <section>
+        <h2>Genres</h2>
+        <ul>
+            {% for genre in genres %}
+                <li>{{ genre.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Add New Genre</h3>
+        <form action="/add_genre" method="POST">
+            <input type="text" name="name" placeholder="Genre Name" required>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Albums</h2>
+        <ul>
+            {% for album in albums %}
+                <li>{{ album.title }} <span class="info">by</span> {{ album.artist.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Add New Album</h3>
+        <form action="/add_album" method="POST">
+            <input type="text" name="title" placeholder="Album Title" required>
+            <select name="artist_id" required>
+                <option value="">Select Artist</option>
+                {% for artist in artists %}
+                    <option value="{{ artist.id }}">{{ artist.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Artists</h2>
+        <ul>
+            {% for artist in artists %}
+                <li>{{ artist.name }}</li>
+            {% endfor %}
+        </ul>
+    
+        <h3>Add New Artist</h3>
+        <form action="/add_artist" method="POST">
+            <input type="text" name="name" placeholder="Artist Name" required>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Songs</h2>
+        <ul>
+            {% for song in songs %}
+                <li>{{ song.title }} <span class="info">in</span> {{ song.album.title }} (<span class="info">by</span> {{ song.album.artist.name }})</li>
+            {% endfor %}
+        </ul>
+    
+        <h3>Add New Song</h3>
+        <form action="/add_song" method="POST">
+            <input type="text" name="title" placeholder="Song Title" required>
+            <input type="number" name="length" placeholder="Song Length (in seconds)" required>
+            Song release date:
+            <input type="date" name="creation" placeholder="Song Release Date" required>
+            <select name="genre_id" required>
+                <option value="">Select Genre</option>
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="album_id" required>
+                <option value="">Select Album</option>
+                {% for album in albums %}
+                    <option value="{{ album.id }}">{{ album.title }} (by {{ album.artist.name }})</option>
+                {% endfor %}
+            </select>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Contracts</h2>
+        <ul>
+            {% for contract in contracts %}
+                <li>{{ contract.id }} <span class="info">for</span> {{ contract.capacity }} <span class="info">users</span></li>
+            {% endfor %}
+        </ul>
+
+        <h3>Add New Contract</h3>
+        <form action="/add_contract" method="POST">
+            Start date:
+            <input type="date" name="start" placeholder="Start Date" required>
+            End date:
+            <input type="date" name="end" placeholder="End Date" required>
+            <input type="number" name="capacity" placeholder="Capacity" required>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>{{ user.name }} {{ user.last_name }} ({{ user.contract_id }})</li>
+            {% endfor %}
+        </ul>
+    
+        <h3>Add New User</h3>
+        <form action="/add_user" method="POST">
+            <input type="text" name="name" placeholder="User Name" required>
+            <input type="text" name="last_name" placeholder="User Last Name" required>
+            Birth date:
+            <input type="date" name="birth_date" placeholder="User Birth Date" required>
+            <select name="contract_id" required>
+                <option value="">Select Contract</option>
+                {% for contract in contracts %}
+                    <option value="{{ contract.id }}">{{ contract.id }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">+</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Activities</h2>
+        <ul>
+            {% for activity in activities %}
+                <li>{{ activity.start_date }} {{ activity.elapsed }}<span class="info">%</span> ({{ activity.user.name }}  {{ activity.user.last_name }} <span class="info">listened to</span> {{ activity.song.title }})</li>
+            {% endfor %}
+        </ul>
+    
+        <h3>Add New Activity</h3>
+        <form action="/add_activity" method="POST">
+            <select name="user_id" required>
+                <option value="">Select User</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.name }} {{ user.last_name }}</option>
+                {% endfor %}
+            </select>
+            <select name="song_id" required>
+                <option value="">Select Song</option>
+                {% for song in songs %}
+                    <option value="{{ song.id }}">{{ song.title }} in {{ song.album.title }} (by {{ song.album.artist.name   }})</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="elapsed" placeholder="Elapsed Time (in percentage)" value="100" required>
+            Start date:
+            <input type="date" name="start_date" placeholder="Start Date" required>
+            <button type="submit">+</button>
+        </form>
+    </section>
+{% endblock %}

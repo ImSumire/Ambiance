@@ -1,0 +1,1 @@
+.transition-main{transition-duration:.12s;transition-property:opacity,transform;transition-timing-function:ease-in-out}html.is-animating .transition-main{opacity:0;transform:translateX(-.25em)}html.is-leaving .transition-main{transform:translateX(.25em)}

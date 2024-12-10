@@ -6,8 +6,8 @@ from sqlalchemy import ForeignKey, Integer, String, Date, Time
 from __main__ import db
 
 
-date = float
-time = float
+date = str
+time = str
 
 
 # Songs database
@@ -15,7 +15,7 @@ class Genre(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
 
-    # Foreign links
+    # Foreign link
     songs: Mapped[list['Song']] = relationship("Song", back_populates="genre")
 
 
@@ -34,14 +34,14 @@ class Artist(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
 
-    # Foreign links
+    # Foreign link
     albums: Mapped[list[Album]] = relationship("Album", back_populates="artist")
 
 
 class Song(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String, nullable=False)
-    length: Mapped[time] = mapped_column(Time)
+    length: Mapped[int] = mapped_column(Integer)
     creation: Mapped[date] = mapped_column(Date)
 
     genre_id: Mapped[int] = mapped_column(ForeignKey("genre.id"), nullable=False)
@@ -76,6 +76,7 @@ class Contract(db.Model):
     users: Mapped[list[User]] = relationship("User", back_populates="contract")
 
 
+# Server back-end
 class Activity(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     start_date: Mapped[date] = mapped_column(Date)
@@ -88,19 +89,10 @@ class Activity(db.Model):
     song: Mapped[Song] = relationship("Song")
 
 
-""" # Old
+class Connection(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ip_address: Mapped[str] = mapped_column(String, nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
 
-class Artist(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(nullable=False, unique=True)
-
-    songs: Mapped[list['Song']] = relationship("Song", back_populates="artist")
-
-
-class Song(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(nullable=False)
-
-    artist_id: Mapped[int] = mapped_column(ForeignKey("artist.id"), nullable=False)
-    artist: Mapped['Artist'] = relationship("Artist", back_populates="songs")
- """
+    # Foreign link
+    user: Mapped[User] = relationship("User")

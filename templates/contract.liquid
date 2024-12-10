@@ -1,0 +1,20 @@
+{% extends "layout/base.liquid" %}
+
+{% block title %} Contract {% endblock %}
+
+{% block content %}
+    <h2>Your contract</h2>
+    <h4>The activity of those who share the same contract with you!</h4>
+    <form action="/contract" method="GET">
+        <p>
+            <input type="date" name="day" required>
+            <span style="margin: 0 0.4rem 0 0.52rem;">
+                At the same-time ?
+            </span>
+            <input type="checkbox" name="st">
+        </p>
+        <button type="submit">MATCH!</button>
+    </form>
+    <br><br>
+    Selected: {{ day_str }} (Same-time: {{ st_str }})
+{% endblock %}

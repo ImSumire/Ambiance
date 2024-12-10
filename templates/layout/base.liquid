@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="darkreader-lock">
+
+    <title>Ambiance • {% block title %}{% endblock%}</title>
+    <link rel="shortcut icon" href="/static/dal segno.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.min.css') }}">
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+
+<body>
+    {% include "includes/nav.liquid" %}
+
+    <main class="transition-main">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

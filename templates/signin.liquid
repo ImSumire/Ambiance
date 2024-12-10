@@ -1,0 +1,26 @@
+{% extends "layout/base.liquid" %}
+
+{% block title %} Sign In {% endblock %}
+
+{% block content %}
+    <h2>Sign In</h2>
+
+    <form action="/login" method="POST">
+        <!-- Very safe and secure too -->
+        <!-- Name -->
+        <label for="name">Name:</label><br><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <!-- Last Name -->
+        <label for="last-name">Last Name:</label><br><br>
+        <input type="text" id="last-name" name="last-name" required><br><br>
+
+        <!-- Birth -->
+        <label for="birth">Birth:</label><br><br>
+        <input type="date" id="birth" name="birth" required><br><br>
+
+        <button type="submit">Sign In</button>
+    </form>
+    <br>
+    <a href="/signup">Sign Up instead</a>
+{% endblock %}
