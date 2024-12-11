@@ -22,7 +22,7 @@ def about():
 
 
 @app.route("/admin")
-@require_login
+# @require_login
 def admin():
     genres = Genre.query.all()
     albums = Album.query.all()
